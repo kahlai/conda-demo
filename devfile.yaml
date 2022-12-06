@@ -1,0 +1,59 @@
+schemaVersion: 2.1.0
+metadata:
+  name: conda-demo
+attributes:
+  controller.devfile.io/storage-type: per-user
+projects:
+  - name: conda-demo
+    git:
+      remotes:
+        origin: 'https://github.com/kahlai/conda-demo.git'
+components:
+  - attributes:
+      app.kubernetes.io/name: python
+      che-theia.eclipse.org/vscode-extensions:
+        - 'relative:extension/resources/github_com/microsoft/vscode-python/releases/download/2020_7_94776/ms-python-release.vsix'
+        - 'relative:extension/resources/github_com/fabric8-analytics/fabric8-analytics-vscode-extension/releases/download/0_3_6/fabric8-analytics-0.3.6.vsix'
+      che-theia.eclipse.org/vscode-preferences:
+        python.globalModuleInstallation: true
+    container:
+      args:
+        - sh
+        - '-c'
+        - '${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}'
+      env:
+        - name: PLUGIN_REMOTE_ENDPOINT_EXECUTABLE
+          value: /remote-endpoint/plugin-remote-endpoint
+        - name: THEIA_PLUGINS
+          value: 'local-dir:///plugins/sidecars/python'
+      image: 'quay.io/kahlai/udi-rhel8:miniconda'
+      cpuLimit: 8000m
+      cpuRequest: 2000m
+      memoryLimit: 4G
+      mountSources: true
+      sourceMapping: /projects
+      volumeMounts:
+        - name: venv
+          path: /home/user/.venv
+        - name: conda-env
+          path: /home/user/miniconda/envs/
+        - name: remote-endpoint
+          path: /remote-endpoint
+        - name: plugins
+          path: /plugins
+    name: python
+  - name: venv
+    volume:
+      size: 1G
+  - name: conda-env
+    volume:
+      size: 2G
+commands:
+  - exec:
+      commandLine: conda env create -f environment.yml && conda activate py39 && python train.py
+      component: python
+      group:
+        kind: run
+      label: Run the application
+      workingDir: '${PROJECTS_ROOT}/conda-demo'
+    id: run
