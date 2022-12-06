@@ -37,10 +37,6 @@ components:
           path: /home/user/.venv
         - name: conda-env
           path: /home/user/miniconda/envs/
-        - name: remote-endpoint
-          path: /remote-endpoint
-        - name: plugins
-          path: /plugins
     name: python
   - name: venv
     volume:
