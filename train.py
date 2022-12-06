@@ -61,3 +61,5 @@ def train_model():
 
     # Save Model
     joblib.dump(xgb, './model/credit-card-fraud-model.model')
+
+train_model()
