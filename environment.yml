@@ -63,7 +63,7 @@ dependencies:
   - xz=5.2.5=h7b6447c_0
   - yaml=0.2.5=h7b6447c_0
   - zipp=3.8.0=py39h06a4308_0
-  - zlib=1.2.12=h7f8727e_1
+  - zlib=1.2.12
   - pip:
       - aniso8601==9.0.1
       - flask==2.0.3
