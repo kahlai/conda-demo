@@ -74,6 +74,8 @@ dependencies:
       - markupsafe==2.1.0
       - numpy==1.22.2
       - pandas==1.4.1
+      - prometheus-client==0.15.0
+      - prometheus-flask-exporter==0.21.0
       - python-dateutil==2.8.2
       - pytz==2021.3
       - scikit-learn==1.0.2
