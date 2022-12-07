@@ -14,7 +14,7 @@ if not os.path.isfile('credit-card-fraud-model.model'):
     print('model not found!!')
     #train_model()
 
-loaded_model = joblib.load('./model/credit-card-fraud-model.model')
+loaded_model = joblib.load('credit-card-fraud-model.model')
 
 @app.route('/predict')
 @metrics.counter('predict', 'Number of prediction',
