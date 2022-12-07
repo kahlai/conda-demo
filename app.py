@@ -10,7 +10,7 @@ app = Flask(__name__)
 api = Api(app)
 metrics = PrometheusMetrics(app, group_by='endpoint')
 
-if not os.path.isfile('../model/credit-card-fraud-model.model'):
+if not os.path.isfile('credit-card-fraud-model.model'):
     print('model not found!!')
     #train_model()
 

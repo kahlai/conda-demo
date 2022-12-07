@@ -60,6 +60,6 @@ def train_model():
     print('F1 score of the XGBoost model is {}'.format(f1_score(y_test, preds)))
 
     # Save Model
-    joblib.dump(xgb, './model/credit-card-fraud-model.model')
+    joblib.dump(xgb, './credit-card-fraud-model.model')
 
 train_model()
