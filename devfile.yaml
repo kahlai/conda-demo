@@ -17,15 +17,16 @@ components:
       che-theia.eclipse.org/vscode-preferences:
         python.globalModuleInstallation: true
     container:
+      endpoints:
+        - exposure: public
+          name: app-endpoint
+          protocol: http
+          targetPort: 8080
       args:
         - sh
         - '-c'
         - '${PLUGIN_REMOTE_ENDPOINT_EXECUTABLE}'
-      env:
-        - name: PLUGIN_REMOTE_ENDPOINT_EXECUTABLE
-          value: /remote-endpoint/plugin-remote-endpoint
-        - name: THEIA_PLUGINS
-          value: 'local-dir:///plugins/sidecars/python'
+      env: []
       image: 'quay.io/kahlai/udi-rhel8:miniconda'
       cpuLimit: 8000m
       cpuRequest: 2000m
@@ -46,10 +47,15 @@ components:
       size: 2G
 commands:
   - exec:
-      commandLine: conda env create -f environment.yml && conda activate py39 && python train.py
+      commandLine: conda info
       component: python
+      env:
+        - name: PATH
+          value: '/home/user/miniconda/bin:/home/user/miniconda/condabin:/home/user/.java/current/bin:/home/user/node_modules/.bin:/home/user/.npm-global/bin:/opt/app-root/src/.npm-global/bin:/opt/apache-maven/bin:/opt/gradle/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+        - name: CONDA_DEFAULT_ENV
+          value: py39
       group:
         kind: run
-      label: Run the application
+      label: Check the environment
       workingDir: '${PROJECTS_ROOT}/conda-demo'
-    id: run
+    id: conda-info
